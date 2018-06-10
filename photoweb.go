@@ -3,6 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
+	"net/http"
+	"github.com/gmaclinuxer/photoweb/views"
 )
 
 var (
@@ -32,4 +35,11 @@ func main() {
 		return
 	}
 
+	mux := http.NewServeMux()
+	mux.HandleFunc("/view", views.ViewHandler)
+
+	err := http.ListenAndServe(":8080", mux)
+	if err != nil {
+		log.Fatal("listen failed: ", err.Error())
+	}
 }

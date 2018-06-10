@@ -19,7 +19,7 @@ LDFLAGS=-ldflags "-X main.Version=$(VERSION) -X 'main.BuildCommit=$(BUILD_COMMIT
 -X 'main.BuildTime=$(BUILD_TIME)' -X 'main.GoVersion=$(GO_VERSION)'"
 
 # binary name
-BINARY := goplayer
+BINARY := app
 PLATFORMS := windows linux darwin
 OS = $(word 1, $@)
 
