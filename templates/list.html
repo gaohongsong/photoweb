@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>list</title>
+    <link rel="stylesheet" href="/statics/css/base.css">
+</head>
+<body>
+<ol>
+    {{ range $.images }}
+    <li><a href="/views?id={{.|urlquery}}">{{.|html}}</a></li>
+    {{  end }}
+</ol>
+</body>
+</html>

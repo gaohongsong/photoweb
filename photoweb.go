@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"github.com/gmaclinuxer/photoweb/views"
+	"path"
 )
 
 var (
@@ -24,6 +25,8 @@ Built:        %s
 `, Version, GoVersion, BuildCommit, BuildTime)
 }
 
+const KeyDir = "./ssl"
+
 func main() {
 
 	version := flag.Bool("v", false, "print version info")
@@ -36,9 +39,18 @@ func main() {
 	}
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("/view", views.ViewHandler)
 
-	err := http.ListenAndServe(":8080", mux)
+	views.StaticDirHandler(mux, "/statics/", "./statics", 0)
+
+	mux.HandleFunc("/", views.ListHandler)
+	mux.HandleFunc("/view", views.ViewHandler)
+	mux.HandleFunc("/upload", views.UploadHandler)
+
+	//err := http.ListenAndServe(":8080", mux)
+	err := http.ListenAndServeTLS(":8080",
+		path.Join(KeyDir, "bksaas.crt"),
+		path.Join(KeyDir, "bksaas.key"),
+		mux)
 	if err != nil {
 		log.Fatal("listen failed: ", err.Error())
 	}
