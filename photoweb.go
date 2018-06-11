@@ -43,8 +43,9 @@ func main() {
 	views.StaticDirHandler(mux, "/statics/", "./statics", 0)
 
 	mux.HandleFunc("/", views.ListHandler)
-	mux.HandleFunc("/view", views.ViewHandler)
+	mux.HandleFunc("/view/", views.ViewHandler)
 	mux.HandleFunc("/upload", views.UploadHandler)
+	mux.HandleFunc("/test", views.TestHandler)
 
 	//err := http.ListenAndServe(":8080", mux)
 	err := http.ListenAndServeTLS(":8080",

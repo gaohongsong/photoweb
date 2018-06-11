@@ -10,6 +10,8 @@ func SafeHandler(fn http.HandlerFunc) http.HandlerFunc {
 
 	return func(w http.ResponseWriter, r *http.Request) {
 
+		log.Printf("[%s]: %s -> %v", r.Method, r.URL, fn)
+
 		// capture panic error
 		defer func() {
 			if e, ok := recover().(error); ok {
